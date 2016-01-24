@@ -5,10 +5,9 @@
  */
 'use strict';
 var menu = require('./index.js')(120, 120);
+var main = document.getElementById('container');
+main.appendChild(menu.getMenu());
 menu.setViewBox(0, 0, 120, 120);
 menu.getMenu().classList.add('test');
-var main = document.getElementById('container');
-menu.addItem('item2', 'Click Me', 10, 10, 'blue', 100, 100);
-main.appendChild(menu.getMenu());
-console.dir(menu.getMenu());
-console.dir(document.getElementById('fart'));
+menu.addItem('item2', 'Click Me', 10, 10, 'red', 100, 100);
+console.dir(menu.getItems());
