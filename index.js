@@ -28,9 +28,14 @@ module.exports = function(width, height){
       x = x || 0;
       y = y || 0;
       fill = fill || 'transparent';
-      iWidth = iWidth || width;
+      if(items.length > 0 && !iWidth) {
+        iWidth = items[0].item.attributes.width.value;//to tired formulate default x position here tomorrow
+        //x = (items.length + 1) * (width - items.length * 5);
+      }
+      else iWidth = iWidth || width;
+      console.log(iWidth);
       iHeight = iHeight || height;
-      txtXOffset = txtXOffset || width/2;
+      txtXOffset = txtXOffset || iWidth/2;
       txtYOffset = txtYOffset || 0;
       item.setAttribute('x', x);
       item.setAttribute('y', y);
