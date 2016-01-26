@@ -4,10 +4,14 @@
  * Copyright © 2016 Dale Corns
  */
 'use strict';
-var menu = require('./index.js')(310);
+var menu = require('./index.js')();
 var main = document.getElementById('container');
 main.appendChild(menu.getMenu());
 menu.getMenu().classList.add('test');
-menu.addItem('item1', 'Click Here', null, null, '#49F592', 100, null, null, 18);
-menu.addItem('item2', 'Or Here',105, null, '#49F582',null , null, null, 18);
-menu.addItem('item3', 'And Not Here',210, null, '#49F582',null , null, null, 18);
+menu.addItem({txt: 'Click Here', fill: '#49F592', width: 100});
+menu.addItem({txt: 'Or Here', fill: '#49F592'});
+menu.addItem({txt: 'And Not Here', fill: '#49F592'});
+menu.addItem({txt: 'Maybe Here', fill: '#49F592'});
+menu.addItem({txt: 'Maybe Not Here', fill: '#49F592'});
+menu.addItem({txt: 'What Ever Dude', fill: '#49F592'});
+menu.addItem({txt: 'Maybe Not Here', fill: '#49F592', width: 200});

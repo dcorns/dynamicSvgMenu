@@ -5,13 +5,17 @@
  * Creates an object for the creation of a dynamic svg menu
  */
 'use strict';
-module.exports = function(width, height){
+module.exports = function(svgMenu){
   var menu = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  width = width || 100;
-  height = height || 25;
+  svgMenu = svgMenu || {};
+  var width = svgMenu.width || 0;
+  var height = svgMenu.height || 25;
+  var horizSpace = svgMenu.horizSpace || 5;
+  var vertSpace = svgMenu.vertSpace || 0;
+  var rows = svgMenu.rows || 0;
   menu.setAttribute('width', width);
   menu.setAttribute('height', height);
-  var items = [];
+  var items = [], iX = 0;
   return{
     setViewBox: function setViewBox(x, y, xr, xy){
       var vb = x || '0' + ' ' + (y || '0') + ' ' + (xr || width) + ' ' + (xy || height);
@@ -20,23 +24,30 @@ module.exports = function(width, height){
     getMenu: function getMenu(){
       return menu;
     },
-    addItem: function addItem(id, txt, x, y, fill, iWidth, iHeight, txtXOffset, txtYOffset){
+    addItem: function addItem(svgItem){
       var item = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
       var iText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-      item.id = id || '';
-      txt = txt || '';
-      x = x || 0;
-      y = y || 0;
-      fill = fill || 'transparent';
-      if(items.length > 0 && !iWidth) {
-        iWidth = items[0].item.attributes.width.value;//to tired formulate default x position here tomorrow
-        //x = (items.length + 1) * (width - items.length * 5);
-      }
-      else iWidth = iWidth || width;
-      console.log(iWidth);
-      iHeight = iHeight || height;
+      var svgItem = svgItem || {};
+      item.id = svgItem.id || '';
+      var txt = svgItem.txt || '';
+      var x = svgItem.x || iX;
+      var y = svgItem.y || 0;
+      var iWidth = svgItem.width;
+      var fill = svgItem.fill || 'transparent';
+      var iHeight  = svgItem.height || height;
+      var txtYOffset = svgItem.txtYOffset || 18;
+      var txtXOffset = svgItem.txtXOffset;
+
+      if(!iWidth) iWidth = items[0].item.attributes.width.value;
       txtXOffset = txtXOffset || iWidth/2;
-      txtYOffset = txtYOffset || 0;
+      if(items.length > 0){
+        iX = iX + horizSpace;
+        x = iX;
+      }
+      iX = iX + parseInt(iWidth);
+      width = parseInt(width, 10) + parseInt(iWidth, 10) + parseInt(horizSpace, 10);
+      menu.setAttribute('width', (width - horizSpace).toString());
+
       item.setAttribute('x', x);
       item.setAttribute('y', y);
       item.setAttribute('fill', fill);
