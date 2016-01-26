@@ -4,7 +4,7 @@
  * Copyright © 2016 Dale Corns
  */
 'use strict';
-var menu = require('./index.js')();
+var menu = require('./index.js')({cb: callBack});
 var main = document.getElementById('container');
 main.appendChild(menu.getMenu());
 menu.getMenu().classList.add('test');
@@ -15,3 +15,7 @@ menu.addItem({txt: 'Maybe Here', fill: '#49F592'});
 menu.addItem({txt: 'Maybe Not Here', fill: '#49F592'});
 menu.addItem({txt: 'What Ever Dude', fill: '#49F592'});
 menu.addItem({txt: 'Maybe Not Here', fill: '#49F592', width: 200});
+
+function callBack(data){
+  console.dir(data);
+}

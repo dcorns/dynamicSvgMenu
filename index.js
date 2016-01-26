@@ -16,6 +16,11 @@ module.exports = function(svgMenu){
   menu.setAttribute('width', width);
   menu.setAttribute('height', height);
   var items = [], iX = 0;
+  if(svgMenu.cb){
+    menu.addEventListener('click', function(e){
+      svgMenu.cb(e.target.getAttribute('data-id'));
+    });
+  }
   return{
     setViewBox: function setViewBox(x, y, xr, xy){
       var vb = x || '0' + ' ' + (y || '0') + ' ' + (xr || width) + ' ' + (xy || height);
@@ -53,6 +58,8 @@ module.exports = function(svgMenu){
       item.setAttribute('fill', fill);
       item.setAttribute('width', iWidth);
       item.setAttribute('height', iHeight);
+      item.setAttribute('data-id', items.length.toString());
+      iText.setAttribute('data-id', items.length.toString());
       iText.textContent = txt;
       iText.setAttribute('x', x + txtXOffset);
       iText.setAttribute('y', y + txtYOffset);
