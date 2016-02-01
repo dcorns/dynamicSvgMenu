@@ -70,6 +70,35 @@ module.exports = function(svgMenu){
     },
     getItems: function getItems(){
       return items;
+    },
+    drawXreference: function drawXYreference(w, h, el){
+      var s = document.getElementById(el) || menu;
+      w = w || parseInt(s.getAttribute('width'), 10);
+      h = h || parseInt(s.getAttribute('height'), 10);
+      var y0 = (h-h%2)/2;
+      var x0 = (w-w%2)/2;
+      var x, y, c=0;
+      for (c; c < w; c+=10){
+        x = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        x.setAttribute('x1', c.toString());
+        x.setAttribute('x2', (c+2).toString());
+        x.setAttribute('y1', y0.toString());
+        x.setAttribute('y2', y0.toString());
+        x.setAttribute('stroke', 'black');
+        x.setAttribute('stroke-width', '2');
+        s.appendChild(x);
+      }
+      c = 0;
+      for (c; c < h; c+=10){
+        y = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        y.setAttribute('x1', x0.toString());
+        y.setAttribute('x2', x0.toString());
+        y.setAttribute('y1', c.toString());
+        y.setAttribute('y2', (c+2).toString());
+        y.setAttribute('stroke', 'black');
+        y.setAttribute('stroke-width', '2');
+        s.appendChild(y);
+      }
     }
   }
 };
