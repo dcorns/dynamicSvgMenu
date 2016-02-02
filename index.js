@@ -22,8 +22,12 @@ module.exports = function(svgMenu){
     });
   }
   return{
-    setViewBox: function setViewBox(x, y, xr, xy){
-      var vb = x || '0' + ' ' + (y || '0') + ' ' + (xr || width) + ' ' + (xy || height);
+    setViewBox: function setViewBox(x, y, w, h){
+      x = x || 0;
+      y = y || 0;
+      w = w || width;
+      h = h || height;
+      var vb = x + ' ' + y + ' ' + w + ' ' + h;
       menu.setAttribute('viewBox', vb);
     },
     getMenu: function getMenu(){
